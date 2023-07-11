@@ -6,11 +6,12 @@ const password = document.getElementById("password");
 const passwordConfirmation = document.getElementById("password-confirmation");
 const errorList = document.querySelector(".errors-list");
 const terms = document.querySelector("#terms");
+const errors = document.querySelector(".errors");
 
 // TODO: Create an event listener for when the form is submitted and do the following inside of it.
 form.addEventListener("submit", (e) => {
-  const errorMessages = [];
   clearErrors();
+  const errorMessages = [];
   if (username.value.length < 6) {
     errorMessages.push("Username must be at least 6 characters long");
   }
@@ -27,7 +28,6 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
     showErrors(errorMessages);
   }
-  console.log(errorMessages);
 });
 //    TODO: Create an array to store all error messages and clear any old error messages
 //    TODO: Define the following validation checks with appropriate error messages
@@ -38,7 +38,10 @@ form.addEventListener("submit", (e) => {
 //    TODO: If there are any errors then prevent the form from submitting and show the error messages
 
 // TODO: Define this function
+
 function clearErrors() {
+  errorList.innerHTML = "";
+
   // Loop through all the children of the error-list element and remove them
   // IMPORTANT: This cannot be done with a forEach loop or a normal for loop since as you remove children it will modify the list you are looping over which will not work
   // I recommend using a while loop to accomplish this task
@@ -48,6 +51,12 @@ function clearErrors() {
 
 // TODO: Define this function
 function showErrors(errorMessages) {
+  errors.classList.add("show");
+  errorMessages.forEach((a) => {
+    const list = document.createElement("li");
+    errorList.appendChild(list);
+    list.innerText = a;
+  });
   // Add each error to the error-list element
   // Make sure to use an li as the element for each error
   // Also, make sure you add the show class to the errors container
